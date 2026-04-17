@@ -1,0 +1,19 @@
+{
+  "name": "cs351-finalproj-api",
+  "version": "1.0.0",
+  "description": "Tasks & Reminders API (Express) for CS351 final project",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.8.1",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
