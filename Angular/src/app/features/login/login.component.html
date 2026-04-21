@@ -1,0 +1,32 @@
+<div class="login-page">
+  <div class="card">
+    <h1>Tasks &amp; Reminders</h1>
+    <p class="subtitle">Sign in with your existing account.</p>
+
+    @if (errorMessage(); as msg) {
+      <div class="alert" role="alert">{{ msg }}</div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <label class="field">
+        <span>Email</span>
+        <input type="email" formControlName="email" autocomplete="username" />
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+          <span class="hint">Enter a valid email.</span>
+        }
+      </label>
+
+      <label class="field">
+        <span>Password</span>
+        <input type="password" formControlName="password" autocomplete="current-password" />
+        @if (form.controls.password.touched && form.controls.password.invalid) {
+          <span class="hint">Password is required.</span>
+        }
+      </label>
+
+      <button type="submit" class="primary" [disabled]="submitting()">
+        {{ submitting() ? 'Signing in…' : 'Sign in' }}
+      </button>
+    </form>
+  </div>
+</div>
