@@ -1,3 +1,4 @@
+const cors = require("cors");
 const express = require("express");
 const { openDatabase } = require("./db");
 const { Store } = require("./store");
@@ -12,6 +13,25 @@ async function createApp() {
   await store.seed();
 
   const app = express();
+
+  const localhostDevOrigins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:4200",
+    "http://127.0.0.1:4200",
+  ];
+  if (process.env.CORS_ORIGIN === "*") {
+    app.use(cors({ origin: true }));
+  } else if (process.env.CORS_ORIGIN) {
+    app.use(
+      cors({
+        origin: process.env.CORS_ORIGIN.split(",").map((s) => s.trim()).filter(Boolean),
+      }),
+    );
+  } else {
+    app.use(cors({ origin: localhostDevOrigins }));
+  }
+
   app.use(express.json());
 
   const v1 = express.Router();
