@@ -1,5 +1,0 @@
-export const environment = {
-  production: false,
-  /** Base URL from the API spec (no trailing slash). Override for local development. */
-  apiBaseUrl: 'http://localhost:3000/v1',
-};
