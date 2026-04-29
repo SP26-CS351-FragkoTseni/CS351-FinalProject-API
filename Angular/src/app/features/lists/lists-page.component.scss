@@ -5,6 +5,14 @@
   padding: 1.25rem 1.5rem;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+  margin-bottom: 1rem;
+}
+
 h2 {
   margin: 0 0 0.5rem;
   font-size: 1.25rem;
@@ -15,9 +23,263 @@ h2 {
   line-height: 1.55;
 }
 
-code {
-  font-size: 0.85em;
-  background: #f1f5f9;
-  padding: 0.1rem 0.35rem;
-  border-radius: 4px;
+.refresh {
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  color: #0f172a;
+  border-radius: 999px;
+  padding: 0.5rem 0.9rem;
+  font: inherit;
+  cursor: pointer;
 }
+
+.refresh:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.state {
+  margin: 0;
+  color: #475569;
+}
+
+.error {
+  color: #b91c1c;
+}
+
+.list-grid {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.list-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  background: #f8fafc;
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.list-card h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+}
+
+.meta {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.92rem;
+}
+
+.create-form {
+  display: flex;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+  flex-wrap: wrap;
+}
+
+.form-input {
+  flex: 1;
+  min-width: 200px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0.6rem 0.9rem;
+  font: inherit;
+  font-size: 0.95rem;
+  background: #fff;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.1);
+}
+
+.form-input:disabled {
+  background: #f1f5f9;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.form-submit {
+  border: 1px solid #cbd5e1;
+  background: #0f172a;
+  color: #fff;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.form-submit:hover:not(:disabled) {
+  background: #1e293b;
+}
+
+.form-submit:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.form-error {
+  margin: 0.5rem 0 0;
+  color: #b91c1c;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.edit-form {
+  margin-top: 0.9rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.link-button,
+.secondary-button {
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #0f172a;
+  border-radius: 6px;
+  padding: 0.45rem 0.75rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.delete-button {
+  border: 1px solid #fecaca;
+  background: #fff7f7;
+  color: #b91c1c;
+  border-radius: 6px;
+  padding: 0.45rem 0.75rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.delete-button:hover:not(:disabled) {
+  background: #fee2e2;
+}
+
+.delete-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.link-button {
+  align-self: start;
+}
+
+.secondary-button {
+  background: #f8fafc;
+}
+
+.link-button:hover,
+.secondary-button:hover:not(:disabled) {
+  background: #e2e8f0;
+}
+
+.link-button:disabled,
+.secondary-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.tasks-section {
+  margin-top: 1.25rem;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 1rem;
+}
+
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.task-item {
+  border: 1px solid #dbeafe;
+  background: #f0f9ff;
+  border-radius: 6px;
+  padding: 0.75rem;
+}
+
+.task-title {
+  margin: 0 0 0.35rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #0c2340;
+}
+
+.task-meta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.priority {
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.priority-low {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.priority-medium {
+  background: #fed7aa;
+  color: #92400e;
+}
+
+.status {
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.status.completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.due {
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.priority-high {
+  background: #fecaca;
+  color: #991b1b;
+}
+
+

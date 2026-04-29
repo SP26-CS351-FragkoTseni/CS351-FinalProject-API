@@ -58,14 +58,20 @@ function createTasksRouter(store) {
   });
 
   router.patch("/:id/complete", (req, res) => {
-    const id = Number(req.params.id);
-    if (!Number.isInteger(id)) return sendError(res, 400, "Invalid task id.");
-    const { task, forbidden } = store.findTask(id, req.userId);
-    if (forbidden) return sendError(res, 403, "Not allowed to access this task.");
-    if (!task) return sendError(res, 404, "Task not found.");
-    task.completed = !task.completed;
-    res.json(taskJson(task));
-  });
+  const id = Number(req.params.id);
+  if (!Number.isInteger(id)) return sendError(res, 400, "Invalid task id.");
+
+  const { task, forbidden } = store.findTask(id, req.userId);
+  if (forbidden) return sendError(res, 403, "Not allowed to access this task.");
+  if (!task) return sendError(res, 404, "Task not found.");
+
+  const updated = store.updateTask(task, { completed: !task.completed }, req.userId);
+
+  if (updated.error === "list_notfound") return sendError(res, 404, "List not found.");
+  if (updated.error === "forbidden") return sendError(res, 403, "Not allowed to use this list.");
+
+  res.json(taskJson(updated.task));
+});
 
   router.get("/:id", (req, res) => {
     const id = Number(req.params.id);

@@ -27,3 +27,25 @@ code {
   padding: 0.1rem 0.35rem;
   border-radius: 4px;
 }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  border: 1px solid #e2e8f0;   /* This creates the visible | separators */
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+th {
+  background: #f8fafc;
+  font-weight: 600;
+  color: #334155;
+}
+
+tbody tr:hover {
+  background: #f1f5f9;
+}

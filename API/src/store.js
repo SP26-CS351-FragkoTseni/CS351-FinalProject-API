@@ -145,12 +145,17 @@ class Store {
     );
   }
 
+  renameList(listId, name) {
+    this.db.prepare("UPDATE lists SET name = ? WHERE id = ?").run(
+      String(name),
+      listId
+    );
+    return mapList(this.db.prepare("SELECT * FROM lists WHERE id = ?").get(listId));
+  }
+
   updateList(list, patch) {
     if (patch.name !== undefined) {
-      this.db.prepare("UPDATE lists SET name = ? WHERE id = ?").run(
-        String(patch.name),
-        list.id
-      );
+      return this.renameList(list.id, patch.name);
     }
     return mapList(this.db.prepare("SELECT * FROM lists WHERE id = ?").get(list.id));
   }

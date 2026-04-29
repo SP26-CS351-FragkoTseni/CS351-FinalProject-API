@@ -1,7 +1,94 @@
 <section class="panel">
-  <h2>Task lists</h2>
-  <p class="lead">
-    Skeleton for <code>GET /lists</code>, <code>POST /lists</code>, <code>PATCH /lists/:id</code>,
-    <code>DELETE /lists/:id</code>, and <code>GET /lists/:id/tasks</code>.
-  </p>
+  <div class="header">
+    <div>
+      <h2>Task lists</h2>
+      <p class="lead">Quickly add a new list and keep your tasks organized. The input is ready as soon as the page opens.</p>
+    </div>
+  </div>
+
+  <p class="state error" *ngIf="errorMessage" role="alert" aria-live="polite">{{ errorMessage }}</p>
+
+  <form (ngSubmit)="createList()" class="create-form" aria-labelledby="new-list-label">
+    <label id="new-list-label" class="sr-only">New list name</label>
+    <input
+      type="text"
+      placeholder="New list name..."
+      [(ngModel)]="newListName"
+      name="listName"
+      class="form-input"
+      autofocus
+    />
+    <button type="submit" class="form-submit">
+      Create
+    </button>
+    <p class="form-error" *ngIf="createError">{{ createError }}</p>
+  </form>
+
+  <ul class="list-grid" *ngIf="!errorMessage && lists.length > 0">
+    <li class="list-card" *ngFor="let list of lists">
+      <div class="card-head">
+        <div>
+          <h3>{{ list.name }}</h3>
+          <p class="meta" *ngIf="list.created_at; else noCreatedAt">
+            Created {{ list.created_at | date: 'medium' }}
+          </p>
+          <ng-template #noCreatedAt>
+            <p class="meta">Created date unavailable</p>
+          </ng-template>
+        </div>
+
+        <div class="card-actions">
+          <button type="button" class="link-button" (click)="toggleExpandList(list)" [disabled]="deletingListId===list.id">
+            {{ expandedListId===list.id ? 'Hide Tasks' : 'View Tasks' }}
+          </button>
+          <button type="button" class="link-button" (click)="startEditList(list)" [disabled]="deletingListId===list.id">Edit</button>
+          <button type="button" class="delete-button" (click)="deleteList(list)" [disabled]="deletingListId===list.id">
+            {{ deletingListId===list.id ? 'Deleting...' : 'Delete' }}
+          </button>
+        </div>
+      </div>
+
+      <form
+        class="edit-form"
+        *ngIf="editingListId === list.id"
+        (ngSubmit)="saveEditList(list)"
+      >
+        <input
+          type="text"
+          class="form-input"
+          name="editListName"
+          [(ngModel)]="editListName"
+          [disabled]="updatingList"
+          placeholder="List name"
+        />
+        <div class="form-actions">
+          <button type="submit" class="form-submit" [disabled]="updatingList">
+            {{ updatingList ? 'Saving...' : 'Save' }}
+          </button>
+          <button type="button" class="secondary-button" (click)="cancelEditList()" [disabled]="updatingList">
+            Cancel
+          </button>
+        </div>
+        <p class="form-error" *ngIf="updateError">{{ updateError }}</p>
+      </form>
+
+      <div class="tasks-section" *ngIf="expandedListId === list.id">
+        <p class="state" *ngIf="loadingTasks">Loading tasks...</p>
+        <p class="state error" *ngIf="!loadingTasks && tasksError">{{ tasksError }}</p>
+        <ul class="task-list" *ngIf="!loadingTasks && !tasksError">
+          <li class="task-item" *ngFor="let task of expandedListTasks">
+            <div class="task-title">{{ task.title }}</div>
+            <div class="task-meta">
+              <span class="priority" [ngClass]="'priority-' + task.priority">{{ task.priority }}</span>
+              <span class="status" [ngClass]="{ completed: task.completed }">{{ task.completed ? 'Done' : 'Pending' }}</span>
+              <span class="due" *ngIf="task.due_date">{{ task.due_date | date: 'short' }}</span>
+            </div>
+          </li>
+        </ul>
+        <p class="state" *ngIf="!loadingTasks && !tasksError && expandedListTasks.length === 0">No tasks in this list.</p>
+      </div>
+    </li>
+  </ul>
+
+  <p class="state" *ngIf="loaded && !errorMessage && lists.length === 0">No lists yet. Add one above to get started.</p>
 </section>

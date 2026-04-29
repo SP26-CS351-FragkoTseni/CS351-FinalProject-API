@@ -58,6 +58,10 @@ function createListsRouter(store) {
     if (patch.name === undefined) {
       return sendError(res, 400, "No fields to update.");
     }
+    /* Updatable fields: name, if empty it returns an error */
+    if (typeof patch.name !== "string" || !patch.name.trim()) {
+      return sendError(res, 400, "Missing or invalid name.");
+    }
     const updated = store.updateList(list, patch);
     res.json(listJson(updated));
   });

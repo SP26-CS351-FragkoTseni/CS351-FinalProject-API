@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, finalize, map, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { LoginRequest, LoginResponse } from '../models/api.types';
+import { LoginRequest, LoginResponse, UserProfile } from '../models/api.types';
 import { TokenStore } from './token.store';
 
 @Injectable({ providedIn: 'root' })
@@ -30,5 +30,13 @@ export class AuthService {
       finalize(() => this.tokens.clear()),
       map(() => undefined),
     );
+  }
+
+  getCurrentUser(): Observable<UserProfile> {
+    return this.http.get<UserProfile>(`${environment.apiBaseUrl}/auth/me`);
+  }
+
+  updateProfile(profile: Partial<Pick<UserProfile, 'name' | 'email'>> & { password?: string }): Observable<UserProfile> {
+    return this.http.patch<UserProfile>(`${environment.apiBaseUrl}/auth/me`, profile);
   }
 }

@@ -3,13 +3,14 @@
     <div class="brand">Tasks &amp; Reminders</div>
     <nav>
       <a routerLink="/tasks" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Tasks</a>
-      <a routerLink="/lists" routerLinkActive="active">Lists</a>
+      <a routerLink="/lists" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Lists</a>
       <a routerLink="/profile" routerLinkActive="active">Profile</a>
     </nav>
+    <div class="user-info" *ngIf="userName">Signed in as {{ userName }}</div>
     <button type="button" class="ghost" (click)="logout()">Log out</button>
   </header>
 
   <main class="content">
-    <router-outlet />
+    <router-outlet></router-outlet>
   </main>
 </div>

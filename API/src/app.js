@@ -34,6 +34,7 @@ async function createApp() {
 
   app.use(express.json());
 
+  // All v1 routes go here
   const v1 = express.Router();
   v1.use("/auth", createAuthRouter(store));
   v1.use("/tasks/:taskId/reminders", createRemindersRouter(store));

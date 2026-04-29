@@ -11,7 +11,7 @@ import { ApiErrorBody } from '../../core/models/api.types';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
   private readonly fb = inject(FormBuilder);
@@ -22,9 +22,11 @@ export class LoginComponent {
   readonly errorMessage = signal<string | null>(null);
 
   readonly form = this.fb.nonNullable.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(1)]],
+    email: ['student@example.com', [Validators.required, Validators.email]],
+    password: ['secret', [Validators.required, Validators.minLength(1)]],
   });
+
+  readonly seedHint = 'Seeded test accounts: student@example.com / secret or other@example.com / secret';
 
   submit(): void {
     if (this.form.invalid || this.submitting()) {

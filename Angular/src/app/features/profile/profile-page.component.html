@@ -1,6 +1,35 @@
 <section class="panel">
   <h2>Profile</h2>
-  <p class="lead">
-    Skeleton for <code>GET /auth/me</code> and <code>PATCH /auth/me</code> (name, email, password updates).
-  </p>
+  <p class="lead">View and update your profile information. Changes are saved through <code>PATCH /auth/me</code>.</p>
+
+  <p class="state" *ngIf="loading">Loading profile...</p>
+  <p class="state error" *ngIf="errorMessage" role="alert">{{ errorMessage }}</p>
+  <p class="state success" *ngIf="successMessage" role="status">{{ successMessage }}</p>
+
+  <form class="profile-form" *ngIf="!loading" (ngSubmit)="saveProfile()">
+    <label>
+      Name
+      <input type="text" class="form-input" [(ngModel)]="profile.name" name="name" />
+    </label>
+
+    <label>
+      Email
+      <input type="email" class="form-input" [(ngModel)]="profile.email" name="email" />
+    </label>
+
+    <label>
+      Password
+      <input
+        type="password"
+        class="form-input"
+        [(ngModel)]="password"
+        name="password"
+        placeholder="Leave blank to keep your password"
+      />
+    </label>
+
+    <button type="submit" class="form-submit" [disabled]="saving">
+      {{ saving ? 'Saving...' : 'Save changes' }}
+    </button>
+  </form>
 </section>

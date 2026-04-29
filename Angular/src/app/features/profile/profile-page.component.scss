@@ -15,6 +15,22 @@ h2 {
   line-height: 1.55;
 }
 
+.profile-form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.profile-form label {
+  display: grid;
+  gap: 0.35rem;
+  font-weight: 500;
+}
+
+.state.success {
+  color: #15803d;
+}
+
 code {
   font-size: 0.85em;
   background: #f1f5f9;

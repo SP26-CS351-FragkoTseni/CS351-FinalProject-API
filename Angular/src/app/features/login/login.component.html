@@ -2,6 +2,7 @@
   <div class="card">
     <h1>Tasks &amp; Reminders</h1>
     <p class="subtitle">Sign in with your existing account.</p>
+    <p class="subtitle seed-hint">{{ seedHint }}</p>
 
     @if (errorMessage(); as msg) {
       <div class="alert" role="alert">{{ msg }}</div>

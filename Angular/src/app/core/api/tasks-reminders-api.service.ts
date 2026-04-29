@@ -74,8 +74,10 @@ export class TasksRemindersApiService {
     return this.http.patch<Task>(`${this.base}/tasks/${id}/complete`, {});
   }
 
-  getLists(): Observable<TaskList[]> {
-    return this.http.get<TaskList[]>(`${this.base}/lists`);
+  getLists(noCache = false): Observable<TaskList[]> {
+    if (!noCache) return this.http.get<TaskList[]>(`${this.base}/lists`);
+    const params = new HttpParams().set('_ts', String(Date.now()));
+    return this.http.get<TaskList[]>(`${this.base}/lists`, { params });
   }
 
   createList(body: { name: string }): Observable<TaskList> {

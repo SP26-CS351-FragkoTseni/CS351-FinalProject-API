@@ -1,8 +1,22 @@
-<section class="panel">
-  <h2>Task detail</h2>
+<section class="panel" *ngIf="task() as t">
+  <h2>{{ t.title }}</h2>
+
   <p class="lead">
-    Skeleton for <code>GET /tasks/:id</code>, <code>PATCH /tasks/:id</code>, and reminders under
-    <code>/tasks/:taskId/reminders</code>.
+    Due: {{ t.due_date | date:'short' }}<br>
+    Priority: {{ t.priority }}
   </p>
-  <p class="muted">Current route param <code>id</code>: <strong>{{ taskId() || '—' }}</strong></p>
+
+  <button (click)="editTask()">Edit Task</button>
+  <button (click)="deleteTask()">Delete Task</button>
+
+  <h3>Reminders</h3>
+
+  <ul>
+    <li *ngFor="let r of reminders()">
+      {{ r.remind_at | date:'shortTime' }} ({{ r.delivery_method || 'popup' }})
+      <button (click)="deleteReminder(r.id)">X</button>
+    </li>
+  </ul>
+
+  <button (click)="addReminder()">Add Reminder</button>
 </section>
