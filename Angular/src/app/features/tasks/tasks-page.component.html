@@ -3,7 +3,8 @@
 
   <button (click)="createTask()">Create Task</button>
   
-  <table>
+  <h3>Active Tasks</h3>
+  <table *ngIf="pendingTasks.length > 0">
     <thead>
       <tr>
         <th>Done</th>
@@ -14,7 +15,7 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let task of tasks">
+      <tr *ngFor="let task of pendingTasks">
         <td>
           <input
           type="checkbox"
@@ -37,4 +38,42 @@
       </tr>
     </tbody>
   </table>
+  <p *ngIf="pendingTasks.length === 0">No active tasks</p>
+
+  <h3>Completed Tasks</h3>
+  <table *ngIf="completedTasks.length > 0">
+    <thead>
+      <tr>
+        <th>Done</th>
+        <th>Title</th>
+        <th>Due</th>
+        <th>Priority</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let task of completedTasks">
+        <td>
+          <input
+          type="checkbox"
+          [checked]="task.completed"
+          (change)="toggleComplete(task)"
+          />
+        </td>
+
+        <td>
+          <a [routerLink]="['/tasks', task.id]">
+            {{ task.title}}
+          </a>
+        </td>
+
+        <td>{{ task.due_date | date: 'short' }}</td>
+        <td>{{ task.priority }}</td>
+        <td>
+        <button class="delete-btn" (click)="deleteTask(task)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="completedTasks.length === 0">No completed tasks</p>
 </section>

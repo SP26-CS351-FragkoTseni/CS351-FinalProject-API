@@ -14,6 +14,14 @@ import { Task } from '../../core/models/api.types';
 export class TasksPageComponent implements OnInit{
   tasks: Task[] = [];
 
+  get pendingTasks(): Task[] {
+    return this.tasks.filter(t => !t.completed);
+  }
+
+  get completedTasks(): Task[] {
+    return this.tasks.filter(t => t.completed);
+  }
+
   constructor(private api: TasksRemindersApiService){}
 
   ngOnInit(){

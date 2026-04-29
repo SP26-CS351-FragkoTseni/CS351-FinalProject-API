@@ -6,6 +6,7 @@
     Priority: {{ t.priority }}
   </p>
 
+  <button (click)="markComplete()" [disabled]="t.completed">{{ t.completed ? 'Completed' : 'Done' }}</button>
   <button (click)="editTask()">Edit Task</button>
   <button (click)="deleteTask()">Delete Task</button>
 

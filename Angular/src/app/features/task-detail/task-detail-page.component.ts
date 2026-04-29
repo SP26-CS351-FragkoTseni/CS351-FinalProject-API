@@ -33,6 +33,15 @@ export class TaskDetailPageComponent {
     ).subscribe(reminders => this.reminders.set(reminders));
   }
 
+  markComplete() {
+    const t = this.task();
+    if (!t) return;
+
+    this.api.toggleTaskComplete(t.id).subscribe(updated => {
+      this.task.set(updated);
+    });
+  }
+
   editTask() {
     const t = this.task();
     if (!t) return;
